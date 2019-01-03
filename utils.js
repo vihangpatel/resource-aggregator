@@ -7,8 +7,8 @@ const groupBy = entries =>
 	}, {})
 
 class CSPAggregator {
-	constructor() {
-		this.result = {}
+	constructor(data = {}) {
+		this.result = { ...data }
 	}
 
 	addResult(addOn) {
@@ -23,6 +23,22 @@ class CSPAggregator {
 		if (Object.keys(this.result).length === 0) {
 			this.result = { ...addOn }
 		}
+	}
+
+	getStats() {
+		const REGEX = /\/\/(.*?)\//g
+		const result = {}
+		for (const key in this.result) {
+			const keys = Object.keys(this.result[key])
+			const domains = keys.reduce((a, b) => {
+				const match = REGEX.exec(b)
+				const domain = match !== null ? match[1] : ""
+				domain && (a[domain] = domain)
+				return a
+			}, {})
+			result[key] = Object.keys(domains).filter(Boolean)
+		}
+		return result
 	}
 }
 
