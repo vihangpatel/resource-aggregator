@@ -27,8 +27,10 @@ app.post("/post-assets", (req, res) => {
 
 app.get("/", (req, res) => {
 	res.set("Content-Type", "text/html")
-	const response = ReactDOMServer.renderToString(<Report data={cspAggregator.getStats()} />)
-	console.log("response : ", response)
+	const response = ReactDOMServer.renderToString(
+		<Report data={cspAggregator.getStats()} config={cspAggregator.getConfig()} meta={cspAggregator.getMetaTag()} />
+	)
+
 	res.send(response)
 })
 
