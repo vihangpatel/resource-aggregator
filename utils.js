@@ -99,10 +99,10 @@ class CSPAggregator {
 	getMetaTag() {
 		const config = this.getConfig()
 
-		let output = ""
+		let output = "\n"
 
 		for (const key in config) {
-			output = `${output}${key} ${config[key].join(" ")}; `
+			output = `${output}${key} ${config[key].join(" ")}; \n`
 		}
 
 		return `<meta http-equiv="Content-Security-Policy" content="${output}" />`
