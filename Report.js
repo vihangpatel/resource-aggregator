@@ -41,15 +41,25 @@ class Report extends React.Component {
 
 		return (
 			<html>
-				<head />
+				<head>
+					<title> CSP Collector</title>
+				</head>
 				<body>
-					<h1>Report</h1>
-					<textarea rows="100" cols="50">
-						{JSON.stringify(config, "\t", 4)}
-					</textarea>
-					<textarea rows="10" cols="50">
-						{meta}
-					</textarea>
+					<h1>CSP config(Node middleware) & meta tag(PHP)</h1>
+					<div style={{}}>
+						<div style={{ float: "left", padding: "20px" }}>
+							<h2>Paste in Node middleware config</h2>
+							<textarea rows="100" cols="50">
+								{JSON.stringify(config, "\t", 4)}
+							</textarea>
+						</div>
+						<div style={{ float: "right", padding: "20px" }}>
+							<h2>Paste in PHP site</h2>
+							<textarea rows="10" cols="50">
+								{meta}
+							</textarea>
+						</div>
+					</div>
 				</body>
 			</html>
 		)
