@@ -102,7 +102,7 @@ class CSPAggregator {
 		let output = ""
 
 		for (const key in config) {
-			output = `${output}${key} ${config[key].join(" ")};`
+			output = `${output}${key} ${config[key].join(" ")}; `
 		}
 
 		return `<meta http-equiv="Content-Security-Policy" content="${output}" />`
