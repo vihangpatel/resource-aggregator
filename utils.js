@@ -64,7 +64,8 @@ class CSPAggregator {
 			"object-src": ["'self'", "data:", "'unsafe-eval'"],
 			"script-src": ["'self'"],
 			"style-src": ["'unsafe-eval'", "'unsafe-inline'", "'self'"],
-			"iframe-src": ["'unsafe-inline'", "'self'"],
+			"frame-src": ["'unsafe-inline'", "'self'"],
+			"font-src": ["https://fonts.gstatic.com", "'self'", "data:"],
 			"media-src": [
 				"https://*.youtube.com",
 				"https://t.co/",
