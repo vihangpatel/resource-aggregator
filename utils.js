@@ -17,7 +17,9 @@ class CSPAggregator {
 		}
 
 		for (const key in this.result) {
+			console.log(key, " ", Object.keys(this.result[key]).length)
 			this.result[key] = { ...this.result[key], ...addOn[key] }
+			console.log(key, " ", Object.keys(this.result[key]).length, "\n\n\n")
 		}
 
 		if (Object.keys(this.result).length === 0) {
@@ -26,13 +28,17 @@ class CSPAggregator {
 	}
 
 	getStats() {
-		const REGEX = /\/\/(.*?)\//g
+		const REGEX = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)/gim
 		const result = {}
 		for (const key in this.result) {
 			const keys = Object.keys(this.result[key])
 			const domains = keys.reduce((a, b) => {
-				const match = REGEX.exec(b)
+				const REGEX = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)/gim
+				const match = REGEX.exec(`${b} `)
 				const domain = match !== null ? match[1] : ""
+				if (domain.length === 0) {
+					console.log("failed : ", b, " ", match)
+				}
 				domain && (a[`https://${domain}`] = `https://${domain}`)
 				return a
 			}, {})
@@ -107,6 +113,11 @@ class CSPAggregator {
 
 		return `<meta http-equiv="Content-Security-Policy" content="${output}" />`
 	}
+}
+
+const getDomainNameFromURL = url => {
+	const a = document.createElement("a").a.setAttribute("href", url)
+	return a.hostname
 }
 
 module.exports = {
