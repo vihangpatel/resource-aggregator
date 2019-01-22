@@ -56,6 +56,17 @@ class Report extends React.Component {
 							<textarea rows="10" cols="50" defaultValue={meta} />
 						</div>
 					</div>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js" />
+					<script
+						dangerouslySetInnerHTML={{
+							__html: `
+							var socket = io('http://localhost:12123');
+							socket.on('refresh', function (data) {
+								location.reload();
+							});
+					`,
+						}}
+					/>
 				</body>
 			</html>
 		)

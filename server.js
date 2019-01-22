@@ -5,8 +5,10 @@ import ReactDOMServer from "react-dom/server"
 import Report from "./Report"
 import React from "react"
 import prefilledData from "./hydrate"
+import Socket from "./socket"
 
 const app = express()
+const socket = new Socket(app)
 
 app.use(bodyParser({ limit: "50mb" }))
 
@@ -23,6 +25,7 @@ app.post("/post-assets", (req, res) => {
 	const groupedResult = groupBy(entries)
 	cspAggregator.addResult(groupedResult)
 	res.send(cspAggregator.result)
+	socket.emitEvent()
 })
 
 app.get("/", (req, res) => {

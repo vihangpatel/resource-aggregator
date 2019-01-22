@@ -11,11 +11,11 @@ const getResourceType = resource => {
 	switch (true) {
 		case resource.initiatorType === "iframe":
 			return "iframe"
-		case resource.name.indexOf(".js") > -1:
+		case resource.name.indexOf(".js") > -1 || resource.initiatorType === "script":
 			return "script"
 		case resource.name.indexOf(".css") > -1:
 			return "link"
-		case /.(svg|png|jpg|jpeg|bmp|gif)/g.exec(resource.name) !== null:
+		case /.(svg|png|jpg|jpeg|bmp|gif)/g.exec(resource.name) !== null || resource.initiatorType === "img":
 			return "img"
 		case /.(ttf|otf|woff|woff2|eot)/g.exec(resource.name) !== null:
 			return "css"
@@ -84,8 +84,7 @@ class CSPAggregator {
 			"media-src": [
 				"https://*.youtube.com",
 				"https://t.co/",
-				"https://www.facebook.com/*",
-				"https://googleads.g.doubleclick.net/",
+				"https://www.facebook.com",
 				"https://stats.g.doubleclick.net/",
 				"https://www.google.com/",
 				"https://securepubads.g.doubleclick.net/",
@@ -99,6 +98,7 @@ class CSPAggregator {
 				// If you use Base64 encoded images (i.e. inlined images), then you will
 				// need the following:
 				"data:",
+				"https://bo.bookmyshow.com",
 			],
 		}
 
