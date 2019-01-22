@@ -79,7 +79,7 @@ class CSPAggregator {
 			"object-src": ["'self'", "data:", "'unsafe-eval'"],
 			"script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
 			"style-src": ["'unsafe-eval'", "'unsafe-inline'", "'self'"],
-			"frame-src": ["'unsafe-inline'", "'self'"],
+			"frame-src": ["'unsafe-inline'", "'self'", "https://tr.snapchat.com"],
 			"font-src": ["https://fonts.gstatic.com", "'self'", "data:"],
 			"media-src": [
 				"https://*.youtube.com",
@@ -99,6 +99,7 @@ class CSPAggregator {
 				// need the following:
 				"data:",
 				"https://bo.bookmyshow.com",
+				"https://cdn.testbms.com",
 			],
 		}
 
