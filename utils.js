@@ -77,7 +77,7 @@ class CSPAggregator {
 			"child-src": ["'self'"],
 			"connect-src": ["*"], // ["'self'", 'ws:'], for service worker
 			"object-src": ["'self'", "data:", "'unsafe-eval'"],
-			"script-src": ["'self'"],
+			"script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
 			"style-src": ["'unsafe-eval'", "'unsafe-inline'", "'self'"],
 			"frame-src": ["'unsafe-inline'", "'self'"],
 			"font-src": ["https://fonts.gstatic.com", "'self'", "data:"],
