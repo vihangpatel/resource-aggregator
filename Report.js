@@ -49,15 +49,11 @@ class Report extends React.Component {
 					<div style={{}}>
 						<div style={{ float: "left", padding: "20px" }}>
 							<h2>Paste in Node middleware config</h2>
-							<textarea rows="100" cols="50">
-								{JSON.stringify(config, "\t", 4)}
-							</textarea>
+							<textarea rows="100" cols="50" defaultValue={JSON.stringify(config, "\t", 4)} />
 						</div>
 						<div style={{ float: "right", padding: "20px" }}>
 							<h2>Paste in PHP site</h2>
-							<textarea rows="10" cols="50">
-								{meta}
-							</textarea>
+							<textarea rows="10" cols="50" defaultValue={meta} />
 						</div>
 					</div>
 				</body>

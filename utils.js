@@ -1,11 +1,26 @@
 const groupBy = entries =>
 	entries.reduce((a, b) => {
-		a[b.initiatorType] || (a[b.initiatorType] = {})
-		a[b.initiatorType][b.name] = b.name
+		const type = getResourceType(b)
+		a[type] || (a[type] = {})
+		a[type][b.name] = b.name
 
 		return a
 	}, {})
 
+const getResourceType = resource => {
+	switch (true) {
+		case resource.initiatorType === "iframe":
+			return "iframe"
+		case resource.name.indexOf(".js") > -1:
+			return "script"
+		case resource.name.indexOf(".css") > -1:
+			return "link"
+		case /.(svg|png|jpg|jpeg|bmp|gif)/g.exec(resource.name) !== null:
+			return "img"
+		case /.(ttf|otf|woff|woff2|eot)/g.exec(resource.name) !== null:
+			return "css"
+	}
+}
 class CSPAggregator {
 	constructor(data = {}) {
 		this.result = { ...data }
@@ -28,12 +43,12 @@ class CSPAggregator {
 	}
 
 	getStats() {
-		const REGEX = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)/gim
+		const REGEX = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:\.)?([^:\/\n?]+)/gim
 		const result = {}
 		for (const key in this.result) {
 			const keys = Object.keys(this.result[key])
 			const domains = keys.reduce((a, b) => {
-				const REGEX = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)/gim
+				const REGEX = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:\.)?([^:\/\n?]+)/gim
 				const match = REGEX.exec(`${b} `)
 				const domain = match !== null ? match[1] : ""
 				if (domain.length === 0) {
